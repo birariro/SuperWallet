@@ -46,6 +46,7 @@
             app:passwordToggleEnabled="true">
             <EditText
                 android:id="@+id/pw_edit_text"
+                android:inputType="textPassword"
                 android:hint="PWD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

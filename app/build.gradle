@@ -55,4 +55,5 @@ dependencies {
     //hilt
     implementation "com.google.dagger:hilt-android:${hiltVersion}"
     kapt "com.google.dagger:hilt-compiler:${hiltVersion}"
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 }

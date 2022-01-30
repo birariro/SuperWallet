@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.superwallet.login.data.LoginFormStateData
 import com.example.superwallet.login.data.LoginResultData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel:ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor() :ViewModel() {
     private val _loginFormState = MutableLiveData<LoginFormStateData>()
     val loginFormState: LiveData<LoginFormStateData> = _loginFormState
 
@@ -18,8 +21,13 @@ class LoginViewModel:ViewModel() {
             _loginFormState.value = LoginFormStateData(validID = false, validPW = false)
         }else if(!validPW(pw)){
             _loginFormState.value = LoginFormStateData(validID = true, validPW = false)
+        }else{
+            _loginFormState.value = LoginFormStateData(validID = true, validPW = true)
         }
-        _loginFormState.value = LoginFormStateData(validID = true, validPW = true)
+
+    }
+    fun login(id:String, pw:String){
+
     }
 
     private fun validID(id:String):Boolean{
