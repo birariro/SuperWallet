@@ -26,8 +26,13 @@ class LoginViewModel @Inject constructor() :ViewModel() {
         }
 
     }
-    fun login(id:String, pw:String){
 
+    fun login(id:String, pw:String){
+        if(!validID(id) || !validPW(pw)){
+            _loginResult.value = LoginResultData(success = false,errorCode = -1)
+        }else{
+            _loginResult.value = LoginResultData(success = true,errorCode = 0)
+        }
     }
 
     private fun validID(id:String):Boolean{

@@ -10,4 +10,5 @@
     <color name="main_background">#F8F8E5</color>
     <color name="blue">#2C4D95</color>
     <color name="main_color">#9A86B3</color>
+    <color name="event_color">#9A86B3</color>
 </resources>

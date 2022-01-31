@@ -3,6 +3,8 @@ package com.example.superwallet.login
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.superwallet.R
@@ -17,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     }
     private lateinit var binding :ActivityLoginBinding
     private val viewModel : LoginViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -50,11 +53,14 @@ class LoginActivity : AppCompatActivity() {
             viewModel.validLoginData(id.text.toString(),pw.text.toString())
         }
         login_btn.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
             viewModel.login(id.text.toString(),pw.text.toString())
+
         }
 
     }
     private fun eventObserve(){
+
         viewModel.loginFormState.observe(this, Observer{
             val loginFormState = it ?: return@Observer
             binding.bottomLayout.resultBtn.isEnabled = false
@@ -65,6 +71,17 @@ class LoginActivity : AppCompatActivity() {
             }
             //로그인 가능한 상태
             binding.bottomLayout.resultBtn.isEnabled = true
+        })
+
+        viewModel.loginResult.observe(this, Observer {
+            binding.loading.visibility = View.GONE
+            val loginResult = it?: return@Observer
+            if(! loginResult.success){
+                return@Observer
+            }
+            //로그인 성공
+
+
         })
     }
 }
