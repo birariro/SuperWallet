@@ -1,7 +1,7 @@
 package com.example.superwallet.member.domain.repository
 
 interface MemberRepository {
-    fun login()
+    suspend fun login(id:String, pw:String) :String
     fun findID()
     fun findPW()
 

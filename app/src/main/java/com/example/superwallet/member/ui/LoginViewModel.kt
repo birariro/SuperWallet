@@ -1,12 +1,15 @@
 package com.example.superwallet.member.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.superwallet.member.domain.usecase.LoginUseCase
 import com.example.superwallet.member.ui.data.LoginFormStateData
 import com.example.superwallet.member.ui.data.LoginResultData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,13 +32,19 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     }
 
     fun login(id:String, pw:String){
+        print("로그인 클릭")
         if(!validID(id) || !validPW(pw)){
             _loginResult.value = LoginResultData(success = false,errorCode = -1)
-        }else{
-
-            _loginResult.value = LoginResultData(success = true,errorCode = 0)
+            return
         }
-        loginUseCase.login(id,pw)
+
+        viewModelScope.launch {
+            val result = loginUseCase.login(id,pw)
+            if(result.length > 5){
+                _loginResult.value = LoginResultData(success = true,errorCode = 0)
+            }
+        }
+
     }
 
     private fun validID(id:String):Boolean{

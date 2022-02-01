@@ -1,5 +1,9 @@
 package com.example.superwallet.member.data.datasource
 
-class RemoteDataSource constructor() {
-    suspend fun login(id:String,pw:String) {}
+import retrofit2.Retrofit
+
+class RemoteDataSource(private val retrofit: Retrofit) {
+    suspend fun login(id:String, pw:String) :String{
+        return retrofit.create(RetrofitDataSource::class.java).getRepos()
+    }
 }

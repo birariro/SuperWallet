@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.superwallet.databinding.ActivityLoginBinding
@@ -78,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 return@Observer
             }
             //로그인 성공
+            Toast.makeText(this, "로그인성공",Toast.LENGTH_SHORT).show()
 
 
         })
