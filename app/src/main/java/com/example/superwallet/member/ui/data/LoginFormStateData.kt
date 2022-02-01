@@ -1,4 +1,4 @@
-package com.example.superwallet.login.data
+package com.example.superwallet.member.ui.data
 
 data class LoginFormStateData(
     val validID: Boolean = false,

@@ -19,7 +19,7 @@
             android:name=".sample.BarcodeActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".member.ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

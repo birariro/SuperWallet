@@ -1,13 +1,11 @@
-package com.example.superwallet.login
+package com.example.superwallet.member.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.example.superwallet.R
 import com.example.superwallet.databinding.ActivityLoginBinding
 import com.example.superwallet.util.extension.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
