@@ -1,4 +1,4 @@
-package com.example.superwallet.member.domain.modules
+package com.example.superwallet.member.ui.modules
 
 import com.example.superwallet.member.data.datasource.RemoteDataSource
 import com.example.superwallet.member.data.repository.CommonMemberRepository
@@ -12,7 +12,6 @@ import dagger.hilt.android.components.ViewModelComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 
 @InstallIn(ViewModelComponent::class)
@@ -35,12 +34,14 @@ class ViewModelModule {
 
     @Provides
     fun provideRetrofit(): Retrofit{
-        val RASE_URL = "https://run.mocky.io/"
+        //val RASE_URL = "https://run.mocky.io/"
+        val RASE_URL = "https://api.github.com"
 
         return Retrofit.Builder()
             .baseUrl(RASE_URL)
             .client(OkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            //.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
