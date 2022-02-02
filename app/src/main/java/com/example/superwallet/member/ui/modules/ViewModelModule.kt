@@ -34,14 +34,13 @@ class ViewModelModule {
 
     @Provides
     fun provideRetrofit(): Retrofit{
-        //val RASE_URL = "https://run.mocky.io/"
-        val RASE_URL = "https://api.github.com"
+        val RASE_URL = "https://run.mocky.io/"
 
         return Retrofit.Builder()
             .baseUrl(RASE_URL)
             .client(OkHttpClient())
-            //.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            //.addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 

@@ -1,5 +1,6 @@
 package com.example.superwallet.member.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.example.superwallet.MainActivity
 import com.example.superwallet.databinding.ActivityLoginBinding
 import com.example.superwallet.util.extension.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +82,8 @@ class LoginActivity : AppCompatActivity() {
             }
             //로그인 성공
             Toast.makeText(this, "로그인성공",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
 
 
         })
