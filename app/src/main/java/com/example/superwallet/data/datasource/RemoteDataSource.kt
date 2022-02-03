@@ -1,4 +1,4 @@
-package com.example.superwallet.member.data.datasource
+package com.example.superwallet.data.datasource
 
 import retrofit2.Retrofit
 

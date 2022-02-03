@@ -1,7 +1,7 @@
-package com.example.superwallet.member.data.repository
+package com.example.superwallet.data.repository
 
-import com.example.superwallet.member.data.datasource.RemoteDataSource
-import com.example.superwallet.member.domain.repository.MemberRepository
+import com.example.superwallet.data.datasource.RemoteDataSource
+import com.example.superwallet.domain.repository.MemberRepository
 
 
 class CommonMemberRepository (private val remoteDataSource: RemoteDataSource):MemberRepository {

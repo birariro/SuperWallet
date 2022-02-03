@@ -1,4 +1,4 @@
-package com.example.superwallet.member.domain.repository
+package com.example.superwallet.domain.repository
 
 interface MemberRepository {
     suspend fun login(id:String, pw:String) :String

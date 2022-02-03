@@ -1,7 +1,6 @@
-package com.example.superwallet.member.data.datasource
+package com.example.superwallet.data.datasource
 
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 interface RetrofitDataSource {
     @GET("v3/e81f0688-972a-40fb-b42b-f89d90b202ca")

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.superwallet.home.HomeFragment"
+        android:name="com.example.superwallet.presenter.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/insertFragment"
-        android:name="com.example.superwallet.insert.InsertFragment"
+        android:name="com.example.superwallet.presenter.insert.InsertFragment"
         android:label="insert_fragment"
         tools:layout="@layout/insert_fragment" />
 </navigation>

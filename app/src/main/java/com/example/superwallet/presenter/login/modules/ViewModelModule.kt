@@ -1,9 +1,10 @@
-package com.example.superwallet.member.ui.modules
+package com.example.superwallet.presenter.login.modules
 
-import com.example.superwallet.member.data.datasource.RemoteDataSource
-import com.example.superwallet.member.data.repository.CommonMemberRepository
-import com.example.superwallet.member.domain.repository.MemberRepository
-import com.example.superwallet.member.domain.usecase.LoginUseCase
+import com.example.superwallet.data.datasource.RemoteDataSource
+import com.example.superwallet.data.repository.CommonMemberRepository
+import com.example.superwallet.domain.repository.MemberRepository
+import com.example.superwallet.domain.usecase.LoginUseCase
+import com.example.superwallet.domain.usecase.ValidDataUseCase
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,10 @@ class ViewModelModule {
     @Provides
     fun provideLoginUseCase(memberRepository: MemberRepository) : LoginUseCase{
         return LoginUseCase(memberRepository)
+    }
+    @Provides
+    fun provideValidDataUseCase() : ValidDataUseCase{
+        return ValidDataUseCase()
     }
     @Provides
     fun provideMemberRepository(remoteDataSource: RemoteDataSource) : MemberRepository{

@@ -1,4 +1,4 @@
-package com.example.superwallet.home
+package com.example.superwallet.presenter.home
 
 import androidx.lifecycle.ViewModel
 

@@ -1,4 +1,4 @@
-package com.example.superwallet.member.ui
+package com.example.superwallet.presenter.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

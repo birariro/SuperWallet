@@ -1,4 +1,4 @@
-package com.example.superwallet.home
+package com.example.superwallet.presenter.insert
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.superwallet.R
 
-class HomeFragment : Fragment() {
+class InsertFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = InsertFragment()
     }
 
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: InsertViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.insert_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(InsertViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
