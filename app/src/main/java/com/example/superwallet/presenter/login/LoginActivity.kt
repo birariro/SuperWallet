@@ -31,16 +31,11 @@ class LoginActivity : AppCompatActivity() {
 
     }
     private fun initUI(){
+
         binding.bottomLayout.resultBtn.text = "로그인"
         binding.bottomLayout.resultBtn.isEnabled = false
-
-        binding.bottomLayout.createUserBtn.setOnClickListener {
-            Log.d(TAG, "회원가입 클릭")
-        }
-        binding.bottomLayout.findUserBtn.setOnClickListener {
-            Log.d(TAG, "비밀번호 찾기 클릭")
-        }
     }
+
     private fun eventAttach(){
 
         val id = binding.idEditText
@@ -59,7 +54,14 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+        binding.bottomLayout.createUserBtn.setOnClickListener {
+            Log.d(TAG, "회원가입 클릭")
+        }
+        binding.bottomLayout.findUserBtn.setOnClickListener {
+            Log.d(TAG, "비밀번호 찾기 클릭")
+        }
     }
+
     private fun eventObserve(){
 
         viewModel.loginFormState.observe(this, Observer{
