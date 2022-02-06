@@ -6,15 +6,18 @@ import com.example.superwallet.data.entity.LoginEntity
 @Dao
 interface LoginDAO {
     @Query("SELECT * FROM LoginEntity")
-    fun getAll(): List<LoginEntity>
+    suspend fun getAll(): List<LoginEntity>
+
+    @Query("SELECT * FROM LoginEntity limit 1")
+    suspend fun get(): LoginEntity
 
     @Insert
-    fun insert(todo: LoginEntity)
+    suspend fun insert(todo: LoginEntity)
 
     @Update
-    fun update(todo: LoginEntity)
+    suspend fun update(todo: LoginEntity)
 
     @Delete
-    fun delete(todo: LoginEntity)
+    suspend fun delete(todo: LoginEntity)
 
 }

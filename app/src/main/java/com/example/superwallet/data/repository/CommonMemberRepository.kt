@@ -2,6 +2,7 @@ package com.example.superwallet.data.repository
 
 import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.datasource.RemoteDataSource
+import com.example.superwallet.data.entity.LoginEntity
 import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.repository.MemberRepository
 
@@ -13,7 +14,14 @@ class CommonMemberRepository (private val remoteDataSource: RemoteDataSource,val
     }
 
     override suspend fun reLogin(): LoginData {
-        TODO("Not yet implemented")
+        var result = localDataSource.findLoginData()
+
+        return  LoginData(id = result?.id ?: "" , pw= result?.password ?: "")
+
+    }
+
+    override suspend fun saveLoginData(loginData: LoginData) {
+        localDataSource.saveLoginData(LoginEntity(id = loginData.id, password = loginData.pw))
     }
 
     override fun findID() {

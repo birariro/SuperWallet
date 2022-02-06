@@ -20,12 +20,21 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     private val _loginResult = MutableLiveData<LoginResultData>()
     val loginResult :LiveData<LoginResultData> = _loginResult
 
+    init {
+        print("view model init 호출")
+        viewModelScope.launch {
+            var result = loginUseCase.reLogin()
+            if(result.id != "" && result.pw != ""){
+                _loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
+            }
+        }
+
+    }
     fun validLoginData(id:String,pw:String){
         _loginFormState.value = validIDAndPWD(id,pw)
     }
 
     fun login(id:String, pw:String){
-        print("로그인 클릭")
         if(_loginFormState.value?.validID == false || _loginFormState.value?.validPW == false){
             _loginResult.value = LoginResultData(success = false,errorCode = -1)
             return
@@ -33,6 +42,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
         viewModelScope.launch {
             _loginResult.value = loginUseCase.login(LoginData(id =id, pw = pw))
+            loginUseCase.reLogin()
         }
 
     }
