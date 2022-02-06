@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.usecase.LoginUseCase
 import com.example.superwallet.presenter.login.model.LoginFormStateData
 import com.example.superwallet.domain.model.LoginResultData
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         }
 
         viewModelScope.launch {
-            _loginResult.value = loginUseCase.login(id,pw)
+            _loginResult.value = loginUseCase.login(LoginData(id =id, pw = pw))
         }
 
     }

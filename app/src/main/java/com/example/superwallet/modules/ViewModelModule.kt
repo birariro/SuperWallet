@@ -1,5 +1,9 @@
 package com.example.superwallet.modules
 
+import android.content.Context
+import androidx.room.Room
+import com.example.superwallet.data.database.LocalDataBase
+import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.datasource.RemoteDataSource
 import com.example.superwallet.data.repository.CommonMemberRepository
 import com.example.superwallet.domain.repository.MemberRepository
@@ -9,9 +13,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 
 @InstallIn(ViewModelComponent::class)
@@ -23,8 +29,8 @@ class ViewModelModule {
     }
 
     @Provides
-    fun provideMemberRepository(remoteDataSource: RemoteDataSource) : MemberRepository{
-        return CommonMemberRepository(remoteDataSource)
+    fun provideMemberRepository(remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource) : MemberRepository{
+        return CommonMemberRepository(remoteDataSource,localDataSource)
     }
 
     @Provides
@@ -32,6 +38,19 @@ class ViewModelModule {
         return RemoteDataSource(retrofit)
     }
 
+    @Provides
+    fun provideLocalDataSource(localDataBase: LocalDataBase) : LocalDataSource{
+        return LocalDataSource(localDataBase)
+    }
+
+    @Provides
+    fun provideDatabase(@ApplicationContext appContext: Context): LocalDataBase {
+        return Room.databaseBuilder(
+            appContext,
+            LocalDataBase::class.java,
+            "supper_wallet.db"
+        ).build()
+    }
 
     @Provides
     fun provideRetrofit(): Retrofit{
