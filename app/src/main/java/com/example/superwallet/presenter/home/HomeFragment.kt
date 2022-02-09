@@ -3,6 +3,7 @@ package com.example.superwallet.presenter.home
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,12 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
+        const val TAG ="HomeFragment"
     }
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var home_recycler_view :RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: CardViewAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private lateinit var fragment_context: Context
@@ -36,6 +38,11 @@ class HomeFragment : Fragment() {
         home_recycler_view.setHasFixedSize(true)
         home_recycler_view.layoutManager = viewManager
         home_recycler_view.adapter = viewAdapter
+
+        viewAdapter.itemClick = { pos ->
+            Log.d(TAG, "itemClick : $pos")
+        }
+
         return view
     }
 

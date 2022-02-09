@@ -10,6 +10,8 @@ import com.example.superwallet.R
 
 class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
 
+    var itemClick : ((Int)-> Unit)? = null
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         public var card_image: ImageView = itemView.findViewById(R.id.card_image)
         public var card_title: TextView = itemView.findViewById(R.id.card_title)
@@ -24,6 +26,9 @@ class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.card_title.text = "테스트 타이틀"
         holder.card_code.text = "테스트 코드"
+        holder.itemView.setOnClickListener {
+            this.itemClick?.invoke(position)
+        }
 
     }
 
