@@ -16,7 +16,6 @@ import com.example.superwallet.R
 class HomeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
         const val TAG ="HomeFragment"
     }
 
