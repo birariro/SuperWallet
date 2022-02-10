@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
     private fun initUI(){
-
         binding.bottomLayout.resultBtn.text = "로그인"
         binding.bottomLayout.resultBtn.isEnabled = false
     }
@@ -63,6 +62,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun eventObserve(){
+        //auto 로그인이 진행중일때
+        viewModel.autoLogin.observe(this, Observer {
+            val autoLoginProcess = it ?:return@Observer
+            if(autoLoginProcess){
+                binding.loading.visibility = View.VISIBLE
+            }else{
+                binding.loading.visibility = View.GONE
+            }
+        })
 
         viewModel.loginFormState.observe(this, Observer{
             val loginFormState = it ?: return@Observer

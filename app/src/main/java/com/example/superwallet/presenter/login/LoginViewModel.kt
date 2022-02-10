@@ -14,19 +14,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) :ViewModel() {
+
+    //로그인 입력 폼 valid 데이터
     private val _loginFormState = MutableLiveData<LoginFormStateData>()
     val loginFormState: LiveData<LoginFormStateData> = _loginFormState
 
+    //로그인 결과 데이터
     private val _loginResult = MutableLiveData<LoginResultData>()
     val loginResult :LiveData<LoginResultData> = _loginResult
 
+    //자동 로그인 프로세스 데이터
+    private val _autoLogin = MutableLiveData<Boolean>()
+    val autoLogin :LiveData<Boolean> = _autoLogin
+
     init {
         print("view model init 호출")
+        _autoLogin.value = true
         viewModelScope.launch {
             var result = loginUseCase.reLogin()
             if(result.id != "" && result.pw != ""){
                 _loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
             }
+            _autoLogin.value = false
         }
 
     }
