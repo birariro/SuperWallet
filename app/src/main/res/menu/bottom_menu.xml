@@ -12,7 +12,7 @@
         android:checkable="false"/>
 
     <item
-        android:id="@+id/accountFragment"
-        android:icon="@drawable/ic_account"
-        android:title="account"/>
+        android:id="@+id/settingFragment"
+        android:icon="@drawable/ic_setting"
+        android:title="setting"/>
 </menu>

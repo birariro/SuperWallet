@@ -1,4 +1,4 @@
-package com.example.superwallet.presenter.account
+package com.example.superwallet.presenter.setting_page
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.superwallet.R
 
-class AccountFragment : Fragment() {
+class SettingFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AccountFragment()
+        fun newInstance() = SettingFragment()
     }
 
-    private lateinit var viewModel: AccountViewModel
+    private lateinit var viewModel: SettingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.account_fragment, container, false)
+        return inflater.inflate(R.layout.setting_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

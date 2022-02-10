@@ -10,14 +10,10 @@
         android:name="com.example.superwallet.presenter.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
+
     <fragment
-        android:id="@+id/insertFragment"
-        android:name="com.example.superwallet.presenter.insert.InsertFragment"
-        android:label="insert_fragment"
-        tools:layout="@layout/insert_fragment" />
-    <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.example.superwallet.presenter.account.AccountFragment"
+        android:id="@+id/settingFragment"
+        android:name="com.example.superwallet.presenter.setting_page.SettingFragment"
         android:label="account_fragment"
-        tools:layout="@layout/account_fragment" />
+        tools:layout="@layout/setting_fragment" />
 </navigation>

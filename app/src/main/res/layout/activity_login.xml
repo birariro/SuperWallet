@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/activity_login_bottom"
+        layout="@layout/login_bottom_layout"
         android:layout_marginBottom="20dp"/>
 
 
