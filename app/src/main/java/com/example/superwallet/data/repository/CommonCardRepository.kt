@@ -14,11 +14,12 @@ class CommonCardRepository(private val localDataSource: LocalDataSource):CardRep
     }
 
     override suspend fun findAllCard(): List<CardData> {
-        val findAllCardData = localDataSource.findAllCardData()
-        for (findAllCardDatum in findAllCardData) {
-            Log.d("CommonCardRepository", "[k4keye] find card : ${findAllCardDatum}")
+        val findAllCardDataList = localDataSource.findAllCardData()
+        val cardDataList = mutableListOf<CardData>()
+        for (findAllCardData in findAllCardDataList) {
+            cardDataList.add(CardData(cardTitle = findAllCardData.title, cardCode = findAllCardData.code, cardType = findAllCardData.type))
         }
-        return mutableListOf()
+        return cardDataList
     }
 
     override suspend fun updateCard(cardData: CardData) {

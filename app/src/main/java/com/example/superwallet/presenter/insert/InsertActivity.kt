@@ -44,6 +44,7 @@ class InsertActivity : AppCompatActivity() {
         binding.saveBtn.setOnClickListener {
             val selectTypeText = findViewById<RadioButton>(binding.cardTypeGroup.checkedRadioButtonId).text.toString()
             viewModel.saveCard(cardTitle.text.toString(), cardCode.text.toString(),selectTypeText)
+            finish()
         }
     }
     private fun eventObserve(){

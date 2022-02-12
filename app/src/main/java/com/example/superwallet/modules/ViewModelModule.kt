@@ -9,6 +9,7 @@ import com.example.superwallet.data.repository.CommonCardRepository
 import com.example.superwallet.data.repository.CommonMemberRepository
 import com.example.superwallet.domain.repository.CardRepository
 import com.example.superwallet.domain.repository.MemberRepository
+import com.example.superwallet.domain.usecase.FindAllCardUseCase
 import com.example.superwallet.domain.usecase.InsertCardUseCase
 import com.example.superwallet.domain.usecase.LoginUseCase
 import com.google.gson.GsonBuilder
@@ -35,6 +36,10 @@ class ViewModelModule {
     @Provides
     fun provideInsertCardUseCase(cardRepository: CardRepository) : InsertCardUseCase {
         return InsertCardUseCase(cardRepository)
+    }
+    @Provides
+    fun provideFindAllCardUseCase(cardRepository: CardRepository) : FindAllCardUseCase {
+        return FindAllCardUseCase(cardRepository)
     }
 
     //REPOSITORY

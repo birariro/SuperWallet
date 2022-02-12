@@ -1,5 +1,6 @@
 package com.example.superwallet.presenter.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superwallet.R
+import com.example.superwallet.domain.model.CardData
 
 class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
 
+    private var cardDataList = listOf<CardData>()
     var itemClick : ((Int)-> Unit)? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,8 +27,8 @@ class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.card_title.text = "테스트 타이틀"
-        holder.card_code.text = "테스트 코드"
+        holder.card_title.text = cardDataList[position].cardTitle
+        holder.card_code.text = cardDataList[position].cardCode
         holder.itemView.setOnClickListener {
             this.itemClick?.invoke(position)
         }
@@ -33,6 +36,10 @@ class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return cardDataList.size
+    }
+    fun setData(cardDataList : List<CardData>){
+        this.cardDataList = cardDataList
+        notifyDataSetChanged()
     }
 }
