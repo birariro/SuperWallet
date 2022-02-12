@@ -9,6 +9,7 @@ import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.usecase.LoginUseCase
 import com.example.superwallet.presenter.login.model.LoginFormStateData
 import com.example.superwallet.domain.model.LoginResultData
+import com.example.superwallet.presenter.login.model.AutoLoginData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,21 +28,23 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     val loginResult :LiveData<LoginResultData> = _loginResult
 
     //자동 로그인 프로세스 데이터
-    private val _autoLogin = MutableLiveData<Boolean>()
-    val autoLogin :LiveData<Boolean> = _autoLogin
+    private val _autoLogin = MutableLiveData<AutoLoginData>()
+    val autoLogin :LiveData<AutoLoginData> = _autoLogin
 
     init {
         print("view model init 호출")
-        _autoLogin.value = true
         viewModelScope.launch {
+
             var result = loginUseCase.reLogin()
+            _autoLogin.value = AutoLoginData(true,result.id,result.pw)
             if(result.id != "" && result.pw != ""){
                 Log.d(TAG, "재로그인 id = ${result.id} pw = ${result.pw}")
                 //todo 인터넷이 없는 환경 이라서 잠시 변경
-                //_loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
-                _loginResult.value =  LoginResultData(success = true,errorCode = 0)
+                //_loginResult.value =  LoginResultData(success = true,errorCode = 0)
+                _loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
+
             }
-            _autoLogin.value = false
+            _autoLogin.value = AutoLoginData(false)
         }
 
     }

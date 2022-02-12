@@ -40,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
         val id = binding.idEditText
         val pw = binding.pwEditText
         val login_btn = binding.bottomLayout.resultBtn
-
         id.afterTextChanged {
             viewModel.validLoginData(id.text.toString(),pw.text.toString())
         }
@@ -64,8 +63,10 @@ class LoginActivity : AppCompatActivity() {
     private fun eventObserve(){
         //auto 로그인이 진행중일때
         viewModel.autoLogin.observe(this, Observer {
-            val autoLoginProcess = it ?:return@Observer
-            if(autoLoginProcess){
+            val autoLogin = it ?:return@Observer
+            if(autoLogin.autoLoginProcess){
+                binding.idEditText.setText(autoLogin.id)
+                binding.pwEditText.setText(autoLogin.pw)
                 binding.loading.visibility = View.VISIBLE
             }else{
                 binding.loading.visibility = View.GONE
