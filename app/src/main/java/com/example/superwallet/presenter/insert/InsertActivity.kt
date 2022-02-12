@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import com.example.superwallet.R
 import com.example.superwallet.databinding.ActivityInsertBinding
 import com.example.superwallet.databinding.ActivityLoginBinding
+import com.example.superwallet.domain.model.CardData
+import com.example.superwallet.domain.model.CardType
 import com.example.superwallet.util.extension.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class InsertActivity : AppCompatActivity() {
     lateinit var binding: ActivityInsertBinding
     private val viewModel: InsertViewModel by viewModels()
+    lateinit var editCardData: CardData
     companion object{
         const val TAG = "InsertActivity"
     }
@@ -23,14 +26,38 @@ class InsertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInsertBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initUI()
+        val intentData = intent.getSerializableExtra("item")
+        if(intentData != null) {
+            Log.d(TAG, "intent data $intentData")
+            editCardData = intentData as CardData
+            editModeUI()
+        }else{
+            insertModeUI()
+        }
+
         eventAttach()
         eventObserve()
 
     }
-    private fun initUI(){
+    private fun editModeUI(){
+        //edit model 에서는 intent 로 받은 정보를 화면에 뿌린다.
+        binding.cardTitle.setText(editCardData.cardTitle)
+        binding.cardCode.setText(editCardData.cardCode)
+        when(editCardData.cardType){
+            CardType.BARCODE -> binding.cardTypeBarcode.isChecked = true
+            CardType.QR -> binding.cardTypeQr.isChecked = true
+        }
+        binding.saveBtn.text = "수정"
+
+        viewModel.cardTitleAfterTextChanged(editCardData.cardTitle)
+        viewModel.cardCodeAfterTextChanged(editCardData.cardCode)
+
+    }
+
+    private fun insertModeUI(){
         binding.saveBtn.isEnabled = false
         binding.cardTypeBarcode.isChecked = true
+        binding.saveBtn.text = "저장"
     }
     private fun eventAttach(){
         val cardTitle = binding.cardTitle
@@ -43,8 +70,14 @@ class InsertActivity : AppCompatActivity() {
         }
         binding.saveBtn.setOnClickListener {
             val selectTypeText = findViewById<RadioButton>(binding.cardTypeGroup.checkedRadioButtonId).text.toString()
-            viewModel.saveCard(cardTitle.text.toString(), cardCode.text.toString(),selectTypeText)
-            finish()
+            when(binding.saveBtn.text){
+                "저장" -> {
+                    viewModel.saveCard(cardTitle.text.toString(), cardCode.text.toString(),selectTypeText)
+                }
+                "수정" -> {
+                    viewModel.updateCard(editCardData.id, cardTitle.text.toString(), cardCode.text.toString(),selectTypeText)
+                }
+            }
         }
     }
     private fun eventObserve(){
@@ -55,6 +88,12 @@ class InsertActivity : AppCompatActivity() {
                 return@Observer
             }
             binding.saveBtn.isEnabled = true
+        })
+        viewModel.executeState.observe(this, Observer {
+            val result = it ?: return@Observer
+            if(result){
+                finish()
+            }
         })
     }
 }

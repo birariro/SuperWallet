@@ -1,6 +1,7 @@
 package com.example.superwallet.presenter.login
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -76,9 +77,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.loginFormState.observe(this, Observer{
             val loginFormState = it ?: return@Observer
             binding.bottomLayout.resultBtn.isEnabled = false
-            if(!loginFormState.validID){
-                return@Observer
-            }else if(!loginFormState.validPW){
+            if(!loginFormState.validID || !loginFormState.validPW){
                 return@Observer
             }
             //로그인 가능한 상태
@@ -94,9 +93,16 @@ class LoginActivity : AppCompatActivity() {
             //로그인 성공
             Toast.makeText(this, "로그인성공",Toast.LENGTH_SHORT).show()
             val intent = Intent(this,MainActivity::class.java)
+            
+            //로그인 성공하면 해당 페이지를 스텍에서 제거하고 페이지를 이동한다.
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            } else {
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP;
+            }
+
             startActivity(intent)
-
-
         })
     }
 }

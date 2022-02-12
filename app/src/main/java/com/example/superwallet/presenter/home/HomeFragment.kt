@@ -1,6 +1,7 @@
 package com.example.superwallet.presenter.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superwallet.R
 import com.example.superwallet.domain.model.CardData
+import com.example.superwallet.presenter.insert.InsertActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +28,6 @@ class HomeFragment : Fragment() {
     private lateinit var home_recycler_view :RecyclerView
     private lateinit var viewAdapter: CardViewAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var listViewData = listOf<CardData>()
     private lateinit var fragment_context: Context
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +42,15 @@ class HomeFragment : Fragment() {
         home_recycler_view.layoutManager = viewManager
         viewAdapter = CardViewAdapter()
         home_recycler_view.adapter = viewAdapter
-        viewAdapter.itemClick = { pos ->
-            Log.d(TAG, "itemClick : $pos")
+        viewAdapter.itemShowClick = { cardData ->
+            Log.d(TAG, "itemClick : $cardData")
+        }
+        viewAdapter.itemEditClick = { cardData ->
+            Log.d(TAG, "itemEditClick : $cardData")
+            val intent = Intent(activity, InsertActivity::class.java)
+            intent.putExtra("item",cardData)
+            startActivity(intent)
+
         }
 
         eventObserve()
@@ -55,10 +63,6 @@ class HomeFragment : Fragment() {
             home_recycler_view.invalidate()
 
         })
-    }
-    private fun refreshListView(){
-        viewAdapter.notifyDataSetChanged()
-
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -24,4 +24,7 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
     suspend fun findAllCardData():List<CardEntity>{
         return localDataBase.cardDAO().getAll()
     }
+    suspend fun updateCardData(cardEntity: CardEntity){
+        return localDataBase.cardDAO().update(cardEntity)
+    }
 }

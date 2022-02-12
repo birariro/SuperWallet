@@ -1,4 +1,4 @@
-package com.example.superwallet.presenter.custom
+package com.example.superwallet.custom
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.content.Context
 import android.util.AttributeSet

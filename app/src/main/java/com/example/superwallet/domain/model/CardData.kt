@@ -1,10 +1,13 @@
 package com.example.superwallet.domain.model
 
-data class CardData (
+import java.io.Serializable
+
+data class CardData  (
+    val id:Int = 0,
     val cardTitle:String,
     val cardCode :String,
     val cardType :CardType
-)
+) : Serializable
 enum class CardType{
     BARCODE, QR
 }

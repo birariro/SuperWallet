@@ -17,12 +17,13 @@ class CommonCardRepository(private val localDataSource: LocalDataSource):CardRep
         val findAllCardDataList = localDataSource.findAllCardData()
         val cardDataList = mutableListOf<CardData>()
         for (findAllCardData in findAllCardDataList) {
-            cardDataList.add(CardData(cardTitle = findAllCardData.title, cardCode = findAllCardData.code, cardType = findAllCardData.type))
+            cardDataList.add(CardData(id =findAllCardData.id ,cardTitle = findAllCardData.title, cardCode = findAllCardData.code, cardType = findAllCardData.type))
         }
         return cardDataList
     }
 
     override suspend fun updateCard(cardData: CardData) {
-        TODO("Not yet implemented")
+        val cardEntity = CardEntity(id = cardData.id, title = cardData.cardTitle, code = cardData.cardCode,type = cardData.cardType)
+        localDataSource.updateCardData(cardEntity)
     }
 }

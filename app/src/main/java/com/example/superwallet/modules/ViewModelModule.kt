@@ -12,6 +12,7 @@ import com.example.superwallet.domain.repository.MemberRepository
 import com.example.superwallet.domain.usecase.FindAllCardUseCase
 import com.example.superwallet.domain.usecase.InsertCardUseCase
 import com.example.superwallet.domain.usecase.LoginUseCase
+import com.example.superwallet.domain.usecase.UpdateCardUseCase
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -40,6 +41,10 @@ class ViewModelModule {
     @Provides
     fun provideFindAllCardUseCase(cardRepository: CardRepository) : FindAllCardUseCase {
         return FindAllCardUseCase(cardRepository)
+    }
+    @Provides
+    fun provideUpdateCardUseCase(cardRepository: CardRepository) : UpdateCardUseCase {
+        return UpdateCardUseCase(cardRepository)
     }
 
     //REPOSITORY

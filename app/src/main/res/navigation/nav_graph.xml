@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.superwallet.presenter.setting_page.SettingFragment"
+        android:name="com.example.superwallet.presenter.setting.SettingFragment"
         android:label="account_fragment"
         tools:layout="@layout/setting_fragment" />
 </navigation>

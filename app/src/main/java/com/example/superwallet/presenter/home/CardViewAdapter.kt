@@ -13,12 +13,14 @@ import com.example.superwallet.domain.model.CardData
 class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
 
     private var cardDataList = listOf<CardData>()
-    var itemClick : ((Int)-> Unit)? = null
-
+    var itemShowClick : ((CardData)-> Unit)? = null
+    var itemEditClick : ((CardData)-> Unit)? = null
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         public var card_image: ImageView = itemView.findViewById(R.id.card_image)
         public var card_title: TextView = itemView.findViewById(R.id.card_title)
         public var card_code: TextView = itemView.findViewById(R.id.card_code)
+        public var edit_image: ImageView = itemView.findViewById(R.id.edit_image)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +32,10 @@ class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
         holder.card_title.text = cardDataList[position].cardTitle
         holder.card_code.text = cardDataList[position].cardCode
         holder.itemView.setOnClickListener {
-            this.itemClick?.invoke(position)
+            this.itemShowClick?.invoke(cardDataList[position])
+        }
+        holder.edit_image.setOnClickListener {
+            this.itemEditClick?.invoke(cardDataList[position])
         }
 
     }
