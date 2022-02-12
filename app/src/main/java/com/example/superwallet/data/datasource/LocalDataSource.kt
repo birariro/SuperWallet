@@ -1,6 +1,7 @@
 package com.example.superwallet.data.datasource
 
 import com.example.superwallet.data.database.LocalDataBase
+import com.example.superwallet.data.entity.CardEntity
 import com.example.superwallet.data.entity.LoginEntity
 
 class LocalDataSource(private val localDataBase: LocalDataBase) {
@@ -14,5 +15,13 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
             localDataBase.loginDAO().delete(loginEntity)
         }
         localDataBase.loginDAO().insert(loginEntity)
+    }
+
+    suspend fun insertCardData(cardEntity: CardEntity){
+        print("[k4keye] LocalDataSource")
+        localDataBase.cardDAO().insert(cardEntity)
+    }
+    suspend fun findAllCardData():List<CardEntity>{
+        return localDataBase.cardDAO().getAll()
     }
 }

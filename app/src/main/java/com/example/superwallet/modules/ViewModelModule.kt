@@ -5,8 +5,11 @@ import androidx.room.Room
 import com.example.superwallet.data.database.LocalDataBase
 import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.datasource.RemoteDataSource
+import com.example.superwallet.data.repository.CommonCardRepository
 import com.example.superwallet.data.repository.CommonMemberRepository
+import com.example.superwallet.domain.repository.CardRepository
 import com.example.superwallet.domain.repository.MemberRepository
+import com.example.superwallet.domain.usecase.InsertCardUseCase
 import com.example.superwallet.domain.usecase.LoginUseCase
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -23,11 +26,22 @@ import javax.inject.Singleton
 @InstallIn(ViewModelComponent::class)
 @Module
 class ViewModelModule {
+
+    //USE CASE
     @Provides
     fun provideLoginUseCase(memberRepository: MemberRepository) : LoginUseCase{
         return LoginUseCase(memberRepository)
     }
+    @Provides
+    fun provideInsertCardUseCase(cardRepository: CardRepository) : InsertCardUseCase {
+        return InsertCardUseCase(cardRepository)
+    }
 
+    //REPOSITORY
+    @Provides
+    fun provideCardRepository(localDataSource: LocalDataSource) : CardRepository {
+        return CommonCardRepository(localDataSource)
+    }
     @Provides
     fun provideMemberRepository(remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource) : MemberRepository{
         return CommonMemberRepository(remoteDataSource,localDataSource)
@@ -49,7 +63,9 @@ class ViewModelModule {
             appContext,
             LocalDataBase::class.java,
             "supper_wallet.db"
-        ).build()
+        )
+        .fallbackToDestructiveMigration()
+        .build()
     }
 
     @Provides

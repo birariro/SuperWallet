@@ -1,5 +1,6 @@
 package com.example.superwallet.presenter.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) :ViewModel() {
-
+    companion object{
+        const val TAG ="LoginViewModel"
+    }
     //로그인 입력 폼 valid 데이터
     private val _loginFormState = MutableLiveData<LoginFormStateData>()
     val loginFormState: LiveData<LoginFormStateData> = _loginFormState
@@ -33,7 +36,10 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         viewModelScope.launch {
             var result = loginUseCase.reLogin()
             if(result.id != "" && result.pw != ""){
-                _loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
+                Log.d(TAG, "재로그인 id = ${result.id} pw = ${result.pw}")
+                //todo 인터넷이 없는 환경 이라서 잠시 변경
+                //_loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
+                _loginResult.value =  LoginResultData(success = true,errorCode = 0)
             }
             _autoLogin.value = false
         }
@@ -51,7 +57,6 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
         viewModelScope.launch {
             _loginResult.value = loginUseCase.login(LoginData(id =id, pw = pw))
-            loginUseCase.reLogin()
         }
 
     }

@@ -12,12 +12,12 @@ interface LoginDAO {
     suspend fun get(): LoginEntity
 
     @Insert
-    suspend fun insert(todo: LoginEntity)
+    suspend fun insert(loginEntity: LoginEntity)
 
     @Update
-    suspend fun update(todo: LoginEntity)
+    suspend fun update(loginEntity: LoginEntity)
 
     @Delete
-    suspend fun delete(todo: LoginEntity)
+    suspend fun delete(loginEntity: LoginEntity)
 
 }
