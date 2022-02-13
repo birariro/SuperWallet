@@ -14,7 +14,7 @@
         android:theme="@style/Theme.SuperWallet">
         <activity
             android:name=".custom.CardPopUpActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert"
+            android:theme="@style/popupTheme"
             android:exported="false" />
 
         <activity
