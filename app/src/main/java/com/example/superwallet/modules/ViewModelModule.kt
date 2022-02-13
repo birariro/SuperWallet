@@ -36,6 +36,15 @@ class ViewModelModule {
         return FindLoginDataUseCase(memberRepository)
     }
     @Provides
+    fun provideInsertLoginDataUseCase(memberRepository: MemberRepository, deleteLoginDataUseCase: DeleteLoginDataUseCase) : InsertLoginDataUseCase {
+        return InsertLoginDataUseCase(memberRepository,deleteLoginDataUseCase)
+    }
+    @Provides
+    fun provideDeleteLoginDataUseCase(memberRepository: MemberRepository) : DeleteLoginDataUseCase {
+        return DeleteLoginDataUseCase(memberRepository)
+    }
+
+    @Provides
     fun provideInsertCardUseCase(cardRepository: CardRepository) : InsertCardUseCase {
         return InsertCardUseCase(cardRepository)
     }
@@ -52,10 +61,7 @@ class ViewModelModule {
     fun provideDeleteCardUseCase(cardRepository: CardRepository) : DeleteCardUseCase {
         return DeleteCardUseCase(cardRepository)
     }
-    @Provides
-    fun provideInsertLoginDataUseCase(memberRepository: MemberRepository) : InsertLoginDataUseCase {
-        return InsertLoginDataUseCase(memberRepository)
-    }
+
 
     //REPOSITORY
     @Provides

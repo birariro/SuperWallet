@@ -91,7 +91,8 @@ class LoginViewModel @Inject constructor(
     private fun firebaseTest(){
         val mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
-        Log.d(TAG, "firebaseTest user $user")
+
+        Log.d(TAG, "firebaseTest user ${user?.email}")
 
 //        mAuth.createUserWithEmailAndPassword("email1@naver.com", "password")
 //            .addOnCompleteListener { task ->
@@ -123,7 +124,7 @@ class LoginViewModel @Inject constructor(
         return id.length >= 5
     }
     private fun validPW(pw:String):Boolean{
-        return pw.length >= 8
+        return pw.length >= 4
     }
 
 }

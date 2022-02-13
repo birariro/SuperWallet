@@ -9,8 +9,6 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
         return localDataBase.loginDAO().get()
     }
     suspend fun saveLoginData(loginEntity: LoginEntity){
-        //기존의 모든 정보 제거후 추가
-        deleteLoginData()
         localDataBase.loginDAO().insert(loginEntity)
     }
     suspend fun deleteLoginData() {
