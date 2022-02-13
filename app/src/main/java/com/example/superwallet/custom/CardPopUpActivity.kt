@@ -40,6 +40,7 @@ class CardPopUpActivity : AppCompatActivity() {
             CardType.QR -> barcodeEncoder.encodeBitmap(barcodeNumber, BarcodeFormat.QR_CODE,width,width)
         }
         binding.cardCode.setImageBitmap(bitmap)
+        binding.cardTitle.text = cardData.cardTitle
 
     }
 

@@ -1,12 +1,16 @@
 package com.example.superwallet.presenter.home
 
+import android.app.Application
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,6 +21,7 @@ import com.example.superwallet.custom.CardPopUpActivity
 import com.example.superwallet.domain.model.CardData
 import com.example.superwallet.presenter.insert.InsertActivity
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -67,7 +72,8 @@ class HomeFragment : Fragment() {
         }
         adapter.itemDeleteClick ={  cardData ->
             Log.d(TAG, "itemDeleteClick : $cardData")
-            viewModel.deleteCardData(cardData)
+            showAlertDialog(cardData)
+
         }
         return adapter
     }
@@ -88,6 +94,23 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+    }
+
+
+    private fun showAlertDialog(cardData: CardData) {
+        val builder = AlertDialog.Builder(fragment_context)
+        builder.setTitle(cardData.cardTitle)
+            .setMessage("정말 삭제 하시겠습니까?")
+            .setPositiveButton("확인",
+                DialogInterface.OnClickListener { dialog, id ->
+                    viewModel.deleteCardData(cardData)
+                })
+            .setNegativeButton("취소",
+                DialogInterface.OnClickListener { dialog, id ->
+
+                })
+        // 다이얼로그를 띄워주기
+        builder.show()
     }
 
     override fun onResume() {
