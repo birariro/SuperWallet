@@ -33,7 +33,6 @@ class LoginUseCase (private val memberRepository: MemberRepository){
 
             }
 
-
     }
 
 }

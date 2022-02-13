@@ -5,7 +5,7 @@ import com.example.superwallet.domain.repository.MemberRepository
 
 class FindLoginDataUseCase (private val memberRepository: MemberRepository) {
     suspend fun execute():LoginData{
-        return memberRepository.reLogin()
+        return memberRepository.findLoginData()
     }
 
 }
