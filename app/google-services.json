@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "626562953737",
+    "project_id": "superwallet-6becc",
+    "storage_bucket": "superwallet-6becc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626562953737:android:39c934daa79667b071bed8",
+        "android_client_info": {
+          "package_name": "com.example.superwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626562953737-8dmo1ksr566hmbo1evs1nf9ikq0q8e67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-2_xH0OrKgJfzFwbeMbLlZ1XFpsXSZSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626562953737-8dmo1ksr566hmbo1evs1nf9ikq0q8e67.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
