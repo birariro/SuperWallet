@@ -32,6 +32,10 @@ class ViewModelModule {
         return LoginUseCase(memberRepository)
     }
     @Provides
+    fun provideLogoutUseCase(deleteLoginDataUseCase: DeleteLoginDataUseCase) : LogoutUseCase{
+        return LogoutUseCase(deleteLoginDataUseCase)
+    }
+    @Provides
     fun provideFindLoginDataUseCase(memberRepository: MemberRepository) : FindLoginDataUseCase{
         return FindLoginDataUseCase(memberRepository)
     }
