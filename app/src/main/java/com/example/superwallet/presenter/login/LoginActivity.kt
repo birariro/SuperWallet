@@ -66,9 +66,9 @@ class LoginActivity : AppCompatActivity() {
         viewModel.autoLogin.observe(this, Observer {
             val autoLogin = it ?:return@Observer
             if(autoLogin.autoLoginProcess){
+                binding.loading.visibility = View.VISIBLE
                 binding.idEditText.setText(autoLogin.id)
                 binding.pwEditText.setText(autoLogin.pw)
-                binding.loading.visibility = View.VISIBLE
             }else{
                 binding.loading.visibility = View.GONE
             }
@@ -88,10 +88,11 @@ class LoginActivity : AppCompatActivity() {
             binding.loading.visibility = View.GONE
             val loginResult = it?: return@Observer
             if(! loginResult.success){
+                Toast.makeText(this, "로그인 실패",Toast.LENGTH_SHORT).show()
                 return@Observer
             }
             //로그인 성공
-            Toast.makeText(this, "로그인성공",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "로그인 성공",Toast.LENGTH_SHORT).show()
             val intent = Intent(this,MainActivity::class.java)
 
             //로그인 성공하면 해당 페이지를 스텍에서 제거하고 페이지를 이동한다.

@@ -1,21 +1,33 @@
 package com.example.superwallet.presenter.login
 
+import android.R.attr.password
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.superwallet.domain.model.LoginData
-import com.example.superwallet.domain.usecase.LoginUseCase
-import com.example.superwallet.presenter.login.model.LoginFormStateData
 import com.example.superwallet.domain.model.LoginResultData
+import com.example.superwallet.domain.usecase.FindLoginDataUseCase
+import com.example.superwallet.domain.usecase.InsertLoginDataUseCase
+import com.example.superwallet.domain.usecase.LoginUseCase
 import com.example.superwallet.presenter.login.model.AutoLoginData
+import com.example.superwallet.presenter.login.model.LoginFormStateData
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) :ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase,
+    private val insertLoginDataUseCase: InsertLoginDataUseCase,
+    private val findLoginDataUseCase: FindLoginDataUseCase
+    ) :ViewModel() {
     companion object{
         const val TAG ="LoginViewModel"
     }
@@ -32,17 +44,15 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     val autoLogin :LiveData<AutoLoginData> = _autoLogin
 
     init {
+        //저장된 로그인 정보가있다면 auto login 을 진행한다.
         print("view model init 호출")
         viewModelScope.launch {
 
-            var result = loginUseCase.reLogin()
+            var result = findLoginDataUseCase.execute()
             _autoLogin.value = AutoLoginData(true,result.id,result.pw)
             if(result.id != "" && result.pw != ""){
                 Log.d(TAG, "재로그인 id = ${result.id} pw = ${result.pw}")
-                //todo 인터넷이 없는 환경 이라서 잠시 변경
-                //_loginResult.value =  LoginResultData(success = true,errorCode = 0)
-                _loginResult.value = loginUseCase.login(LoginData(id =result.id, pw = result.pw))
-
+                login(result.id,result.pw)
             }
             _autoLogin.value = AutoLoginData(false)
         }
@@ -57,10 +67,45 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             _loginResult.value = LoginResultData(success = false,errorCode = -1)
             return
         }
-
-        viewModelScope.launch {
-            _loginResult.value = loginUseCase.login(LoginData(id =id, pw = pw))
+        val loginData = LoginData(id =id, pw = pw)
+        loginUseCase.firebaseLogin(loginData){ loginResultData ->
+            _loginResult.value = loginResultData
+            when(loginResultData.success){
+                true -> {
+                    Log.d(TAG, "로그인 성공")
+                    //로그인 성공이라면 저장
+                    viewModelScope.launch {
+                        insertLoginDataUseCase.execute(loginData)
+                    }
+                }
+                false ->{
+                    Log.d(TAG, "로그인 실패")
+                    _loginResult.value = LoginResultData(success = false,errorCode = -1)
+                }
+            }
         }
+
+
+    }
+
+    private fun firebaseTest(){
+        val mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
+        Log.d(TAG, "firebaseTest user $user")
+
+//        mAuth.createUserWithEmailAndPassword("email1@naver.com", "password")
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    // Sign in success, update UI with the signed-in user's information
+//                    Log.d(TAG, "createUserWithEmail:success")
+//                    val user = mAuth.currentUser
+//
+//                } else {
+//                    // If sign in fails, display a message to the user.
+//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+//                }
+//            }
+
 
     }
 
@@ -74,6 +119,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
     }
     private fun validID(id:String):Boolean{
+        //이메일 형식으로 바꿔라
         return id.length >= 5
     }
     private fun validPW(pw:String):Boolean{
