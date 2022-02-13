@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superwallet.R
+import com.example.superwallet.custom.CardPopUpActivity
 import com.example.superwallet.domain.model.CardData
 import com.example.superwallet.presenter.insert.InsertActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,22 +41,37 @@ class HomeFragment : Fragment() {
 
         home_recycler_view.setHasFixedSize(true)
         home_recycler_view.layoutManager = viewManager
-        viewAdapter = CardViewAdapter()
+
+        viewAdapter = getViewAdapter()
         home_recycler_view.adapter = viewAdapter
-        viewAdapter.itemShowClick = { cardData ->
+
+
+        eventObserve()
+        return view
+    }
+
+    private fun getViewAdapter() :CardViewAdapter{
+        val adapter = CardViewAdapter()
+        adapter.itemShowClick = { cardData ->
             Log.d(TAG, "itemClick : $cardData")
+            val intent = Intent(activity, CardPopUpActivity::class.java)
+            intent.putExtra("item",cardData)
+            startActivity(intent)
         }
-        viewAdapter.itemEditClick = { cardData ->
+        adapter.itemEditClick = { cardData ->
             Log.d(TAG, "itemEditClick : $cardData")
             val intent = Intent(activity, InsertActivity::class.java)
             intent.putExtra("item",cardData)
             startActivity(intent)
 
         }
-
-        eventObserve()
-        return view
+        adapter.itemDeleteClick ={  cardData ->
+            Log.d(TAG, "itemDeleteClick : $cardData")
+            viewModel.deleteCardData(cardData)
+        }
+        return adapter
     }
+
     private fun eventObserve(){
         viewModel.cardDataList.observe(viewLifecycleOwner, Observer {
             val result = it ?: return@Observer

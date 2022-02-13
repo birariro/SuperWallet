@@ -27,4 +27,7 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
     suspend fun updateCardData(cardEntity: CardEntity){
         return localDataBase.cardDAO().update(cardEntity)
     }
+    suspend fun deleteCardData(cardEntity: CardEntity){
+        return localDataBase.cardDAO().delete(cardEntity)
+    }
 }

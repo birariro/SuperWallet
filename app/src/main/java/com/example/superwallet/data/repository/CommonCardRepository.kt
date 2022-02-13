@@ -1,6 +1,5 @@
 package com.example.superwallet.data.repository
 
-import android.util.Log
 import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.entity.CardEntity
 import com.example.superwallet.domain.model.CardData
@@ -23,7 +22,21 @@ class CommonCardRepository(private val localDataSource: LocalDataSource):CardRep
     }
 
     override suspend fun updateCard(cardData: CardData) {
-        val cardEntity = CardEntity(id = cardData.id, title = cardData.cardTitle, code = cardData.cardCode,type = cardData.cardType)
+        val cardEntity = cardDataToCardEntity(cardData)
         localDataSource.updateCardData(cardEntity)
+    }
+
+    override suspend fun deleteCard(cardData: CardData) {
+        val cardEntity = cardDataToCardEntity(cardData)
+        localDataSource.deleteCardData(cardEntity)
+    }
+
+    private fun cardDataToCardEntity(cardData: CardData): CardEntity {
+        return CardEntity(
+            id = cardData.id,
+            title = cardData.cardTitle,
+            code = cardData.cardCode,
+            type = cardData.cardType
+        )
     }
 }

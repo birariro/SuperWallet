@@ -7,4 +7,5 @@ interface CardRepository {
     suspend fun insertCard(cardData: CardData)
     suspend fun findAllCard() : List<CardData>
     suspend fun updateCard(cardData: CardData)
+    suspend fun deleteCard(cardData: CardData)
 }

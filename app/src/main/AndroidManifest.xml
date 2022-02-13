@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperWallet">
         <activity
+            android:name=".custom.CardPopUpActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert"
+            android:exported="false" />
+
+        <activity
             android:name=".presenter.insert.InsertActivity"
             android:exported="false" />
         <activity
