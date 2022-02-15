@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.superwallet.domain.model.CardData
 import com.example.superwallet.domain.model.CardType
-import com.example.superwallet.domain.usecase.InsertCardUseCase
-import com.example.superwallet.domain.usecase.UpdateCardUseCase
+import com.example.superwallet.domain.usecase.card.InsertCardUseCase
+import com.example.superwallet.domain.usecase.card.UpdateCardUseCase
 import com.example.superwallet.presenter.insert.model.CardInsertFormStateData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

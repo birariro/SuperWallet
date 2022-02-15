@@ -1,15 +1,11 @@
 package com.example.superwallet.data.repository
 
-import android.util.Log
 import com.example.superwallet.data.datasource.FireBaseDataSource
 import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.datasource.RemoteDataSource
 import com.example.superwallet.data.entity.LoginEntity
 import com.example.superwallet.domain.model.LoginData
-import com.example.superwallet.domain.model.LoginResultData
 import com.example.superwallet.domain.repository.MemberRepository
-import com.example.superwallet.domain.usecase.LoginStateUseCase
-import com.google.firebase.auth.FirebaseAuth
 
 
 class CommonMemberRepository (private val remoteDataSource: RemoteDataSource,

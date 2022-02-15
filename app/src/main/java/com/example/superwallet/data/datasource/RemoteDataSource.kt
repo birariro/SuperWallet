@@ -2,10 +2,7 @@ package com.example.superwallet.data.datasource
 
 import android.util.Log
 import com.example.superwallet.data.database.RetrofitDataBase
-import com.example.superwallet.domain.model.LoginData
-import com.example.superwallet.domain.usecase.LoginStateUseCase
-import com.example.superwallet.presenter.login.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
+import com.example.superwallet.domain.usecase.member.LoginStateUseCase
 import retrofit2.Retrofit
 
 class RemoteDataSource(private val retrofit: Retrofit) {

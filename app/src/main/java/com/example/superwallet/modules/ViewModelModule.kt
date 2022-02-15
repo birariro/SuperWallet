@@ -11,6 +11,11 @@ import com.example.superwallet.data.repository.CommonMemberRepository
 import com.example.superwallet.domain.repository.CardRepository
 import com.example.superwallet.domain.repository.MemberRepository
 import com.example.superwallet.domain.usecase.*
+import com.example.superwallet.domain.usecase.card.DeleteCardUseCase
+import com.example.superwallet.domain.usecase.card.FindAllCardUseCase
+import com.example.superwallet.domain.usecase.card.InsertCardUseCase
+import com.example.superwallet.domain.usecase.card.UpdateCardUseCase
+import com.example.superwallet.domain.usecase.member.*
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -20,7 +25,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 
 @InstallIn(ViewModelComponent::class)
@@ -29,15 +33,15 @@ class ViewModelModule {
 
     //USE CASE
     @Provides
-    fun provideLoginUseCase(memberRepository: MemberRepository) : LoginUseCase{
+    fun provideLoginUseCase(memberRepository: MemberRepository) : LoginUseCase {
         return LoginUseCase(memberRepository)
     }
     @Provides
-    fun provideLogoutUseCase(deleteLoginDataUseCase: DeleteLoginDataUseCase) : LogoutUseCase{
+    fun provideLogoutUseCase(deleteLoginDataUseCase: DeleteLoginDataUseCase) : LogoutUseCase {
         return LogoutUseCase(deleteLoginDataUseCase)
     }
     @Provides
-    fun provideFindLoginDataUseCase(memberRepository: MemberRepository) : FindLoginDataUseCase{
+    fun provideFindLoginDataUseCase(memberRepository: MemberRepository) : FindLoginDataUseCase {
         return FindLoginDataUseCase(memberRepository)
     }
     @Provides

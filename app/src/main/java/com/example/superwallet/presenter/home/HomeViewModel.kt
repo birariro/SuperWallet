@@ -1,13 +1,12 @@
 package com.example.superwallet.presenter.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.superwallet.domain.model.CardData
-import com.example.superwallet.domain.usecase.DeleteCardUseCase
-import com.example.superwallet.domain.usecase.FindAllCardUseCase
+import com.example.superwallet.domain.usecase.card.DeleteCardUseCase
+import com.example.superwallet.domain.usecase.card.FindAllCardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

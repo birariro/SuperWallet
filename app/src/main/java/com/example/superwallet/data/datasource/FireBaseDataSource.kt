@@ -1,6 +1,6 @@
 package com.example.superwallet.data.datasource
 
-import com.example.superwallet.domain.usecase.LoginStateUseCase
+import com.example.superwallet.domain.usecase.member.LoginStateUseCase
 import com.google.firebase.auth.FirebaseAuth
 
 class FireBaseDataSource {

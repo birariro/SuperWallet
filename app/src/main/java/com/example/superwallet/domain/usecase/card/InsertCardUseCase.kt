@@ -1,4 +1,4 @@
-package com.example.superwallet.domain.usecase
+package com.example.superwallet.domain.usecase.card
 
 import com.example.superwallet.domain.model.CardData
 import com.example.superwallet.domain.repository.CardRepository

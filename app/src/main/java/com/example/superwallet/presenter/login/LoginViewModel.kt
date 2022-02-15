@@ -1,17 +1,15 @@
 package com.example.superwallet.presenter.login
 
-import android.R.attr.password
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.model.LoginResultData
 import com.example.superwallet.domain.usecase.*
+import com.example.superwallet.domain.usecase.member.FindLoginDataUseCase
+import com.example.superwallet.domain.usecase.member.InsertLoginDataUseCase
+import com.example.superwallet.domain.usecase.member.LoginStateUseCase
+import com.example.superwallet.domain.usecase.member.LoginUseCase
 import com.example.superwallet.presenter.login.model.AutoLoginData
 import com.example.superwallet.presenter.login.model.LoginFormStateData
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -62,8 +60,8 @@ class LoginViewModel @Inject constructor(
     }
 
     fun login(id:String, pw:String){
-
-        if(_loginFormState.value?.validID == false || _loginFormState.value?.validPW == false){
+        val validLoginData = validIDAndPWD(id,pw)
+        if(!validLoginData.validID || !validLoginData.validPW){
             _loginResult.value = LoginResultData(success = false,errorCode = -1)
             return
         }
@@ -73,7 +71,7 @@ class LoginViewModel @Inject constructor(
 
         }
 
-        owner.let {
+        owner?.let {
             LoginStateUseCase.loginResult.observe(owner, Observer {
                     loginResultData ->
                 _loginResult.value = loginResultData

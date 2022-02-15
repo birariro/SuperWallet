@@ -1,4 +1,4 @@
-package com.example.superwallet.domain.usecase
+package com.example.superwallet.domain.usecase.member
 
 import android.util.Log
 import androidx.lifecycle.LiveData
