@@ -79,12 +79,12 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginFormState.observe(this, Observer{
             val loginFormState = it ?: return@Observer
-            binding.bottomLayout.isEnabled = false
+            binding.resultBtn.isEnabled = false
             if(!loginFormState.validID || !loginFormState.validPW){
                 return@Observer
             }
             //로그인 가능한 상태
-            binding.bottomLayout.isEnabled = true
+            binding.resultBtn.isEnabled = true
         })
 
         viewModel.loginResult.observe(this, Observer {

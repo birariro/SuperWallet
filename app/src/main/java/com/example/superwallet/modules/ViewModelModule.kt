@@ -66,7 +66,10 @@ class ViewModelModule {
     fun provideDeleteCardUseCase(cardRepository: CardRepository) : DeleteCardUseCase {
         return DeleteCardUseCase(cardRepository)
     }
-
+    @Provides
+    fun provideValidDataUseCase() : ValidDataUseCase {
+        return ValidDataUseCase()
+    }
 
     //REPOSITORY
     @Provides

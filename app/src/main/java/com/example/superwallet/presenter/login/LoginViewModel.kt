@@ -6,10 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.model.LoginResultData
-import com.example.superwallet.domain.usecase.FindLoginDataUseCase
-import com.example.superwallet.domain.usecase.InsertLoginDataUseCase
-import com.example.superwallet.domain.usecase.LoginStateUseCase
-import com.example.superwallet.domain.usecase.LoginUseCase
+import com.example.superwallet.domain.usecase.*
 import com.example.superwallet.presenter.login.model.AutoLoginData
 import com.example.superwallet.presenter.login.model.LoginFormStateData
 import com.google.android.gms.tasks.OnCompleteListener
@@ -24,7 +21,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val insertLoginDataUseCase: InsertLoginDataUseCase,
-    private val findLoginDataUseCase: FindLoginDataUseCase
+    private val findLoginDataUseCase: FindLoginDataUseCase,
+    private val validDataUseCase: ValidDataUseCase
     ) :ViewModel() {
     companion object{
         const val TAG ="LoginViewModel"
@@ -93,21 +91,15 @@ class LoginViewModel @Inject constructor(
 
 
     private fun validIDAndPWD(id:String, pw:String) : LoginFormStateData {
-        if(!validID(id)){
+        if(!validDataUseCase.execute(ValidDataUseCase.ValidDataType.id,id)){
             return LoginFormStateData(validID = false, validPW = false)
-        }else if(!validPW(pw)){
+        }else if(!validDataUseCase.execute(ValidDataUseCase.ValidDataType.password,pw)){
             return LoginFormStateData(validID = true, validPW = false)
         }
         return LoginFormStateData(validID = true, validPW = true)
 
     }
-    private fun validID(id:String):Boolean{
-        //이메일 형식으로 바꿔라
-        return id.length >= 5
-    }
-    private fun validPW(pw:String):Boolean{
-        return pw.length >= 4
-    }
+
 
 }
 
