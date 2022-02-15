@@ -1,6 +1,7 @@
 package com.example.superwallet.data.repository
 
 import android.util.Log
+import com.example.superwallet.data.datasource.FireBaseDataSource
 import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.datasource.RemoteDataSource
 import com.example.superwallet.data.entity.LoginEntity
@@ -11,29 +12,13 @@ import com.example.superwallet.domain.usecase.LoginStateUseCase
 import com.google.firebase.auth.FirebaseAuth
 
 
-class CommonMemberRepository (private val remoteDataSource: RemoteDataSource, private val localDataSource: LocalDataSource):MemberRepository {
+class CommonMemberRepository (private val remoteDataSource: RemoteDataSource,
+                              private val localDataSource: LocalDataSource,
+                              private val fireBaseDataSource: FireBaseDataSource):MemberRepository {
 
-//    override suspend fun login(loginData: LoginData) {
-//        val result =  remoteDataSource.login(loginData.id,loginData.pw)
-//        Log.d("로그인","로그인 $result")
-//        if(result.length > 3){
-//            LoginStateUseCase.setLoginResult(true)
-//        }else{
-//            LoginStateUseCase.setLoginResult(false)
-//        }
-//    }
     override suspend fun login(loginData: LoginData) {
-        val mAuth = FirebaseAuth.getInstance()
-        mAuth.signOut()
-        mAuth.signInWithEmailAndPassword(loginData.id, loginData.pw)
-        mAuth.addAuthStateListener {
-            if(it == null){
-                LoginStateUseCase.setLoginResult(false)
-            }else{
-                LoginStateUseCase.setLoginResult(true)
-            }
-        }
-
+        //remoteDataSource.login(loginData.id,loginData.pw)
+        fireBaseDataSource.login(loginData.id,loginData.pw)
     }
 
     override suspend fun findLoginData(): LoginData {

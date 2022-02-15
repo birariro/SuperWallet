@@ -3,6 +3,7 @@ package com.example.superwallet.modules
 import android.content.Context
 import androidx.room.Room
 import com.example.superwallet.data.database.LocalDataBase
+import com.example.superwallet.data.datasource.FireBaseDataSource
 import com.example.superwallet.data.datasource.LocalDataSource
 import com.example.superwallet.data.datasource.RemoteDataSource
 import com.example.superwallet.data.repository.CommonCardRepository
@@ -73,8 +74,8 @@ class ViewModelModule {
         return CommonCardRepository(localDataSource)
     }
     @Provides
-    fun provideMemberRepository(remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource) : MemberRepository{
-        return CommonMemberRepository(remoteDataSource,localDataSource)
+    fun provideMemberRepository(remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource,fireBaseDataSource: FireBaseDataSource) : MemberRepository{
+        return CommonMemberRepository(remoteDataSource,localDataSource,fireBaseDataSource)
     }
 
     @Provides
@@ -85,6 +86,10 @@ class ViewModelModule {
     @Provides
     fun provideLocalDataSource(localDataBase: LocalDataBase) : LocalDataSource{
         return LocalDataSource(localDataBase)
+    }
+    @Provides
+    fun provideFireBaseDataSource() : FireBaseDataSource{
+        return FireBaseDataSource()
     }
 
     @Provides

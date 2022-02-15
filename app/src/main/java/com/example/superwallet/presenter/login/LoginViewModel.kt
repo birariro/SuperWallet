@@ -79,21 +79,15 @@ class LoginViewModel @Inject constructor(
             LoginStateUseCase.loginResult.observe(owner, Observer {
                     loginResultData ->
                 _loginResult.value = loginResultData
-                when(loginResultData.success){
-                    true -> {
-                        viewModelScope.launch {
-                            insertLoginDataUseCase.execute(loginData)
-                        }
-                    }
-                    false ->{
-                        _loginResult.value = LoginResultData(success = false,errorCode = -1)
+
+                if(loginResultData.success){
+                    viewModelScope.launch {
+                        insertLoginDataUseCase.execute(loginData)
                     }
                 }
 
             })
         }
-
-
 
     }
 
