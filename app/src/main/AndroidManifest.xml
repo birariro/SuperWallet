@@ -13,10 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperWallet">
         <activity
-            android:name=".custom.CardPopUpActivity"
-            android:theme="@style/popupTheme"
+            android:name=".presenter.signup.SignupActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".custom.CardPopUpActivity"
+            android:exported="false"
+            android:theme="@style/popupTheme" />
         <activity
             android:name=".presenter.insert.InsertActivity"
             android:exported="false" />

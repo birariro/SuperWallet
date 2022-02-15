@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.superwallet.MainActivity
 import com.example.superwallet.databinding.ActivityLoginBinding
+import com.example.superwallet.presenter.signup.SignupActivity
 import com.example.superwallet.util.extension.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,15 +34,14 @@ class LoginActivity : AppCompatActivity() {
 
     }
     private fun initUI(){
-        binding.bottomLayout.resultBtn.text = "로그인"
-        binding.bottomLayout.resultBtn.isEnabled = false
+        binding.resultBtn.isEnabled = false
     }
 
     private fun eventAttach(){
 
         val id = binding.idEditText
         val pw = binding.pwEditText
-        val login_btn = binding.bottomLayout.resultBtn
+        val login_btn = binding.resultBtn
         id.afterTextChanged {
             viewModel.validLoginData(id.text.toString(),pw.text.toString())
         }
@@ -54,10 +54,12 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-        binding.bottomLayout.createUserBtn.setOnClickListener {
+        binding.createUserBtn.setOnClickListener {
             Log.d(TAG, "회원가입 클릭")
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
         }
-        binding.bottomLayout.findUserBtn.setOnClickListener {
+        binding.findUserBtn.setOnClickListener {
             Log.d(TAG, "비밀번호 찾기 클릭")
         }
     }
@@ -77,12 +79,12 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginFormState.observe(this, Observer{
             val loginFormState = it ?: return@Observer
-            binding.bottomLayout.resultBtn.isEnabled = false
+            binding.bottomLayout.isEnabled = false
             if(!loginFormState.validID || !loginFormState.validPW){
                 return@Observer
             }
             //로그인 가능한 상태
-            binding.bottomLayout.resultBtn.isEnabled = true
+            binding.bottomLayout.isEnabled = true
         })
 
         viewModel.loginResult.observe(this, Observer {
