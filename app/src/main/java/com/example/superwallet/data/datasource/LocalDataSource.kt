@@ -1,5 +1,6 @@
 package com.example.superwallet.data.datasource
 
+import android.util.Log
 import com.example.superwallet.data.database.LocalDataBase
 import com.example.superwallet.data.entity.CardEntity
 import com.example.superwallet.data.entity.LoginEntity
@@ -9,6 +10,8 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
         return localDataBase.loginDAO().get()
     }
     suspend fun saveLoginData(loginEntity: LoginEntity){
+        var size = localDataBase.loginDAO().getAll().size
+        Log.d("TEST","localDataBase $size")
         localDataBase.loginDAO().insert(loginEntity)
     }
     suspend fun deleteLoginData() {
@@ -16,10 +19,10 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
         for (loginEntity in loginDataList) {
             localDataBase.loginDAO().delete(loginEntity)
         }
+        Log.d("TEST","localDataBase! ${loginDataList.size}")
     }
 
     suspend fun insertCardData(cardEntity: CardEntity){
-        print("[k4keye] LocalDataSource")
         localDataBase.cardDAO().insert(cardEntity)
     }
     suspend fun findAllCardData():List<CardEntity>{
