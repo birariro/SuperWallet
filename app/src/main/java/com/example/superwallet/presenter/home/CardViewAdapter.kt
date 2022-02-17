@@ -16,12 +16,13 @@ class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
     var itemShowClick : ((CardData)-> Unit)? = null
     var itemEditClick : ((CardData)-> Unit)? = null
     var itemDeleteClick : ((CardData)-> Unit)? = null
+    
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        public var card_image: ImageView = itemView.findViewById(R.id.card_image)
-        public var card_title: TextView = itemView.findViewById(R.id.card_title)
-        public var card_code: TextView = itemView.findViewById(R.id.card_code)
-        public var edit_image: ImageView = itemView.findViewById(R.id.edit_image)
-        public var delete_image: ImageView = itemView.findViewById(R.id.delete_image)
+        var card_image: ImageView = itemView.findViewById(R.id.card_image)
+        var card_title: TextView = itemView.findViewById(R.id.card_title)
+        var card_code: TextView = itemView.findViewById(R.id.card_code)
+        var edit_image: ImageView = itemView.findViewById(R.id.edit_image)
+        var delete_image: ImageView = itemView.findViewById(R.id.delete_image)
 
     }
 
