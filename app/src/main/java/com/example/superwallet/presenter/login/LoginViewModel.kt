@@ -100,30 +100,3 @@ class LoginViewModel @Inject constructor(
 
 
 }
-
-
-/*
-
-
-    private fun firebaseTest(){
-        val mAuth = FirebaseAuth.getInstance()
-        val user = mAuth.currentUser
-
-        Log.d(TAG, "firebaseTest user ${user?.email}")
-
-//        mAuth.createUserWithEmailAndPassword("email1@naver.com", "password")
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d(TAG, "createUserWithEmail:success")
-//                    val user = mAuth.currentUser
-//
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-//                }
-//            }
-
-
-    }
- */

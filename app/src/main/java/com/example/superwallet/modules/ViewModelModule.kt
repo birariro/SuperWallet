@@ -33,6 +33,10 @@ class ViewModelModule {
 
     //USE CASE
     @Provides
+    fun provideSignupUseCaseUseCase(memberRepository: MemberRepository) : SignupUseCase {
+        return SignupUseCase(memberRepository)
+    }
+    @Provides
     fun provideLoginUseCase(memberRepository: MemberRepository) : LoginUseCase {
         return LoginUseCase(memberRepository)
     }

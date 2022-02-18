@@ -4,6 +4,8 @@ import com.example.superwallet.domain.usecase.member.LoginStateUseCase
 import com.google.firebase.auth.FirebaseAuth
 
 class FireBaseDataSource {
+
+
     suspend fun login(id:String, pw:String) {
         val mAuth = FirebaseAuth.getInstance()
         mAuth.signOut()
@@ -17,4 +19,20 @@ class FireBaseDataSource {
         }
 
     }
+    suspend fun signup(id:String,pw:String){
+        val mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
+
+        mAuth.createUserWithEmailAndPassword(id, pw)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = mAuth.currentUser
+
+                } else {
+                }
+            }
+
+    }
+
+
 }

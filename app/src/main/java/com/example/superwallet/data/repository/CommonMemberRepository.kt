@@ -8,9 +8,14 @@ import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.repository.MemberRepository
 
 
-class CommonMemberRepository (private val remoteDataSource: RemoteDataSource,
-                              private val localDataSource: LocalDataSource,
-                              private val fireBaseDataSource: FireBaseDataSource):MemberRepository {
+class CommonMemberRepository (
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val fireBaseDataSource: FireBaseDataSource):MemberRepository
+{
+    override suspend fun signup(loginData: LoginData) {
+        fireBaseDataSource.signup(loginData.id,loginData.pw)
+    }
 
     override suspend fun login(loginData: LoginData) {
         //remoteDataSource.login(loginData.id,loginData.pw)
