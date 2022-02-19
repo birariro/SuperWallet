@@ -20,7 +20,7 @@ class CommonMemberRepository (
     }
 
     override suspend fun login(loginData: LoginData) : Flow<CommonResultData> {
-        //remoteDataSource.login(loginData.id,loginData.pw)
+        //return remoteDataSource.login(loginData.id,loginData.pw)
         return fireBaseDataSource.login(loginData.id,loginData.pw)
     }
 

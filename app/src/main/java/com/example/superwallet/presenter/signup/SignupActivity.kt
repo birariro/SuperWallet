@@ -2,6 +2,7 @@ package com.example.superwallet.presenter.signup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.superwallet.R
@@ -53,6 +54,15 @@ class SignupActivity : AppCompatActivity() {
         viewModel.signupEnable.observe(this){
             binding.resultBtn.isEnabled = false
             if(it) binding.resultBtn.isEnabled = true
+        }
+        viewModel.signupResult.observe(this){
+            val signupResult = it ?: return@observe
+            if(signupResult.success){
+                Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                finish()
+            }else{
+                Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

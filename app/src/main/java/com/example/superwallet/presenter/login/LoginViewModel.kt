@@ -37,10 +37,6 @@ class LoginViewModel @Inject constructor(
     private val _autoLogin = MutableLiveData<AutoLoginData>()
     val autoLogin :LiveData<AutoLoginData> = _autoLogin
 
-    private lateinit var owner: LifecycleOwner
-    fun attach(activity: LoginActivity) {
-        owner = activity
-    }
 
     init {
         //저장된 로그인 정보가있다면 auto login 을 진행한다.

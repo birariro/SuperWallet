@@ -1,9 +1,11 @@
 package com.example.superwallet.presenter.signup
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.superwallet.domain.model.CommonResultData
 import com.example.superwallet.domain.model.LoginData
 import com.example.superwallet.domain.usecase.ValidDataUseCase
 import com.example.superwallet.domain.usecase.member.SignupUseCase
@@ -31,6 +33,9 @@ class SignupViewModel @Inject constructor(
     private val _signupEnable = MutableLiveData<Boolean>()
     val signupEnable : LiveData<Boolean> = _signupEnable
 
+    private val _signupResult = MutableLiveData<CommonResultData>()
+    val signupResult : LiveData<CommonResultData> = _signupResult
+
     private var inputID:String = ""
     private var inputPW:String = ""
     private var inputRePW:String = ""
@@ -40,7 +45,8 @@ class SignupViewModel @Inject constructor(
         viewModelScope.launch {
             val signupResultFlow = signupUseCase.execute(loginData)
             signupResultFlow.collect {
-
+                Log.d("SignupViewModel","signupResultFlow : $it")
+                _signupResult.value = it
             }
         }
 
