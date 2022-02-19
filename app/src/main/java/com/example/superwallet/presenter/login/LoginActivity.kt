@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
             binding.resultBtn.isEnabled = true
         })
 
-        viewModel.loginResult.observe(this, Observer {
+        viewModel.commonResult.observe(this, Observer {
             binding.loading.visibility = View.GONE
             val loginResult = it?: return@Observer
             if(! loginResult.success){

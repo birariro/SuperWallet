@@ -2,7 +2,7 @@ package com.example.superwallet.presenter.login
 
 import androidx.lifecycle.*
 import com.example.superwallet.domain.model.LoginData
-import com.example.superwallet.domain.model.LoginResultData
+import com.example.superwallet.domain.model.CommonResultData
 import com.example.superwallet.domain.usecase.*
 import com.example.superwallet.domain.usecase.member.FindLoginDataUseCase
 import com.example.superwallet.domain.usecase.member.InsertLoginDataUseCase
@@ -30,8 +30,8 @@ class LoginViewModel @Inject constructor(
     val loginFormState: LiveData<LoginFormStateData> = _loginFormState
 
     //로그인 결과 데이터
-    private val _loginResult = MutableLiveData<LoginResultData>()
-    val loginResult :LiveData<LoginResultData> = _loginResult
+    private val _loginResult = MutableLiveData<CommonResultData>()
+    val commonResult :LiveData<CommonResultData> = _loginResult
 
     //자동 로그인 프로세스 데이터
     private val _autoLogin = MutableLiveData<AutoLoginData>()
@@ -45,8 +45,8 @@ class LoginViewModel @Inject constructor(
     init {
         //저장된 로그인 정보가있다면 auto login 을 진행한다.
         viewModelScope.launch {
-
             var result = findLoginDataUseCase.execute()
+            if(result.id == "") return@launch
             _autoLogin.value = AutoLoginData(true,result.id,result.pw)
             login(result.id,result.pw)
 
@@ -62,7 +62,7 @@ class LoginViewModel @Inject constructor(
     fun login(id:String, pw:String){
         val validLoginData = validIDAndPWD(id,pw)
         if(!validLoginData.validID || !validLoginData.validPW){
-            _loginResult.value = LoginResultData(success = false,errorCode = -1)
+            _loginResult.value = CommonResultData(success = false,errorCode = -1)
             return
         }
         val loginData = LoginData(id =id, pw = pw)
@@ -70,9 +70,8 @@ class LoginViewModel @Inject constructor(
             loginUseCase.execute(loginData)
 
         }
-
-        owner?.let {
-            LoginStateUseCase.loginResult.observe(owner, Observer {
+        if(::owner.isInitialized){
+            LoginStateUseCase.COMMON_RESULT.observe(owner, Observer {
                     loginResultData ->
                 _loginResult.value = loginResultData
 
@@ -84,6 +83,7 @@ class LoginViewModel @Inject constructor(
 
             })
         }
+
 
     }
 
