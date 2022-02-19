@@ -68,10 +68,9 @@ class LoginViewModel @Inject constructor(
         val loginData = LoginData(id =id, pw = pw)
         viewModelScope.launch {
             loginUseCase.execute(loginData)
-
         }
         if(::owner.isInitialized){
-            LoginStateUseCase.COMMON_RESULT.observe(owner, Observer {
+            LoginStateUseCase.loginResult.observe(owner, Observer {
                     loginResultData ->
                 _loginResult.value = loginResultData
 

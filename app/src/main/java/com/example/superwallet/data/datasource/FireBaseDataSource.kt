@@ -1,6 +1,7 @@
 package com.example.superwallet.data.datasource
 
 import com.example.superwallet.domain.usecase.member.LoginStateUseCase
+import com.example.superwallet.domain.usecase.member.SignupStateUseCase
 import com.google.firebase.auth.FirebaseAuth
 
 class FireBaseDataSource {
@@ -27,8 +28,9 @@ class FireBaseDataSource {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = mAuth.currentUser
-
+                    SignupStateUseCase.setSignupResult(true)
                 } else {
+                    SignupStateUseCase.setSignupResult(false)
                 }
             }
 

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superwallet.R
 import com.example.superwallet.domain.model.CardData
+import kotlin.random.Random
 
 class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
 
@@ -32,6 +33,12 @@ class CardViewAdapter : RecyclerView.Adapter<CardViewAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val range = (1..3).random()
+        when(range){
+            1 -> holder.card_image.setImageResource(R.drawable.icon_card_1)
+            2 -> holder.card_image.setImageResource(R.drawable.icon_card_2)
+            3 -> holder.card_image.setImageResource(R.drawable.icon_card_3)
+        }
         holder.card_title.text = cardDataList[position].cardTitle
         holder.card_code.text = cardDataList[position].cardCode
         holder.itemView.setOnClickListener {
