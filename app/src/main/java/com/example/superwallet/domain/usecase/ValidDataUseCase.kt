@@ -12,7 +12,6 @@ class ValidDataUseCase {
             ValidDataType.password -> validPW(data)
             else -> true
         }
-        Log.d("ValidDataUseCase","ValidDataUseCase ${type}, $data ,${result}")
         return result
     }
     private fun validID(id:String):Boolean{

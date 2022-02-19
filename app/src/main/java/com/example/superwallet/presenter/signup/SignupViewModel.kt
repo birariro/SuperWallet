@@ -9,6 +9,7 @@ import com.example.superwallet.domain.usecase.ValidDataUseCase
 import com.example.superwallet.domain.usecase.member.SignupUseCase
 import com.example.superwallet.presenter.signup.model.InputDataValidResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,7 +38,10 @@ class SignupViewModel @Inject constructor(
     fun signup(){
         val loginData = LoginData(inputID, inputPW)
         viewModelScope.launch {
-            signupUseCase.execute(loginData)
+            val signupResultFlow = signupUseCase.execute(loginData)
+            signupResultFlow.collect {
+
+            }
         }
 
     }

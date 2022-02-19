@@ -6,11 +6,11 @@ import com.example.superwallet.domain.model.CommonResultData
 import com.example.superwallet.domain.usecase.*
 import com.example.superwallet.domain.usecase.member.FindLoginDataUseCase
 import com.example.superwallet.domain.usecase.member.InsertLoginDataUseCase
-import com.example.superwallet.domain.usecase.member.LoginStateUseCase
 import com.example.superwallet.domain.usecase.member.LoginUseCase
 import com.example.superwallet.presenter.login.model.AutoLoginData
 import com.example.superwallet.presenter.login.model.LoginFormStateData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -66,23 +66,16 @@ class LoginViewModel @Inject constructor(
             return
         }
         val loginData = LoginData(id =id, pw = pw)
+
         viewModelScope.launch {
-            loginUseCase.execute(loginData)
-        }
-        if(::owner.isInitialized){
-            LoginStateUseCase.loginResult.observe(owner, Observer {
-                    loginResultData ->
-                _loginResult.value = loginResultData
-
-                if(loginResultData.success){
-                    viewModelScope.launch {
-                        insertLoginDataUseCase.execute(loginData)
-                    }
+            val loginResultFlow = loginUseCase.execute(loginData)
+            loginResultFlow.collect {
+                _loginResult.value = it
+                if(it.success){
+                    insertLoginDataUseCase.execute(loginData)
                 }
-
-            })
+            }
         }
-
 
     }
 
