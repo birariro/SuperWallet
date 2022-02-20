@@ -75,7 +75,6 @@ class LoginViewModel @Inject constructor(
 
     }
 
-
     private fun validIDAndPWD(id:String, pw:String) : LoginFormStateData {
         if(!validDataUseCase.execute(ValidDataUseCase.ValidDataType.id,id)){
             return LoginFormStateData(validID = false, validPW = false)
@@ -85,6 +84,4 @@ class LoginViewModel @Inject constructor(
         return LoginFormStateData(validID = true, validPW = true)
 
     }
-
-
 }

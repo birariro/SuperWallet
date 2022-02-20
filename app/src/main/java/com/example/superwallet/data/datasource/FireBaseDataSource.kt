@@ -10,10 +10,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class FireBaseDataSource {
+    companion object{
+        val mAuth = FirebaseAuth.getInstance()
+    }
 
     suspend fun login(id:String, pw:String) : Flow<CommonResultData> = callbackFlow{
         Log.d("FireBaseDataSource" , "false login Flow 진입")
-        val mAuth = FirebaseAuth.getInstance()
+
         mAuth.signOut()
         mAuth.signInWithEmailAndPassword(id, pw)
 
@@ -34,9 +37,6 @@ class FireBaseDataSource {
 
     }
     suspend fun signup(id:String,pw:String): Flow<CommonResultData> = callbackFlow {
-        val mAuth = FirebaseAuth.getInstance()
-        val user = mAuth.currentUser
-
         mAuth.createUserWithEmailAndPassword(id, pw)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
