@@ -58,9 +58,9 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
-        binding.findUserBtn.setOnClickListener {
-            Log.d(TAG, "비밀번호 찾기 클릭")
-        }
+//        binding.findUserBtn.setOnClickListener {
+//            Log.d(TAG, "비밀번호 찾기 클릭")
+//        }
     }
 
     private fun eventObserve(){
@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
             binding.resultBtn.isEnabled = true
         })
 
-        viewModel.commonResult.observe(this, Observer {
+        viewModel.loginResult.observe(this, Observer {
             binding.loading.visibility = View.GONE
             val loginResult = it?: return@Observer
             if(! loginResult.success){

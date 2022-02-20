@@ -114,7 +114,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "listview 돌아옴")
-        //viewModel.viewOnResume()
+        viewModel.viewOnResume()
 
     }
 

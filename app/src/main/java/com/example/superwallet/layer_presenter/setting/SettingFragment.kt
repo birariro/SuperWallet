@@ -27,13 +27,21 @@ class SettingFragment : Fragment() {
     ): View? {
         var view =  inflater.inflate(R.layout.setting_fragment, container, false)
         eventAttach(view)
+        eventObserve()
         return view
     }
     private fun eventAttach(view: View){
         view.findViewById<Button>(R.id.logout_button).setOnClickListener {
             viewModel.logout()
-            val intent = Intent(activity,LoginActivity::class.java)
-            startActivity(intent)
+        }
+    }
+    private fun eventObserve(){
+        viewModel.logoutResult.observe(viewLifecycleOwner){
+            val result = it ?: return@observe
+            if(result.success){
+                val intent = Intent(activity,LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
 
     //로그인 결과 데이터
     private val _loginResult = MutableLiveData<CommonResultData>()
-    val commonResult :LiveData<CommonResultData> = _loginResult
+    val loginResult :LiveData<CommonResultData> = _loginResult
 
     //자동 로그인 프로세스 데이터
     private val _autoLogin = MutableLiveData<AutoLoginData>()
