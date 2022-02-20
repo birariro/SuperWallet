@@ -27,7 +27,7 @@
 - `callbackFlow` 를 통해 firebase 의 콜백값을 코루틴으로 얻어 올수있었음
 - `Android Clean Architecture` 를 통해 처음에 분리하는게 쉽지않았지만 코드를 추가할때 명확한 위치를 파악하기 용이했고 코드를 수정할때 다른곳까지 변경하는 경우가 많이 적어짐
 
-# 😔아쉬운점
+## 😔아쉬운점
 
 ## ViewModel 의 역활 증가
 
@@ -59,5 +59,6 @@ firebase 를 통해 로그인을 진행하면서 로그인의 결과를 콜백�
 
 이 방법말고 더 자연스럽게 작성할수있는 방법이있을꺼라 생각하지만 해결하지못함
 
-# 📸ScreenShot
+## 📸ScreenShot
+<img width="436" alt="스크린샷 2022-02-20 오후 3 53 28" src="https://user-images.githubusercontent.com/52993842/154832615-5f64fd48-7148-4474-a2db-11efd7b8d2b1.png">
 
