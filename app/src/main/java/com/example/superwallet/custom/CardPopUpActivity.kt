@@ -1,12 +1,11 @@
 package com.example.superwallet.custom
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.superwallet.databinding.ActivityCardPopUpBinding
-import com.example.superwallet.domain.model.CardData
-import com.example.superwallet.domain.model.CardType
+import com.example.superwallet.layer_domain.model.CardData
+import com.example.superwallet.layer_domain.model.CardType
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 

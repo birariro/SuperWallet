@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperWallet">
         <activity
-            android:name=".presenter.signup.SignupActivity"
+            android:name=".layer_presenter.signup.SignupActivity"
             android:exported="false" />
         <activity
             android:name=".custom.CardPopUpActivity"
             android:exported="false"
             android:theme="@style/popupTheme" />
         <activity
-            android:name=".presenter.insert.InsertActivity"
+            android:name=".layer_presenter.insert.InsertActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -29,7 +29,7 @@
             android:name=".sample.BarcodeActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.login.LoginActivity"
+            android:name=".layer_presenter.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

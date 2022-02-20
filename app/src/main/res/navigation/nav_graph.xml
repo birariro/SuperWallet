@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.superwallet.presenter.home.HomeFragment"
+        android:name="com.example.superwallet.layer_presenter.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.superwallet.presenter.setting.SettingFragment"
+        android:name="com.example.superwallet.layer_presenter.setting.SettingFragment"
         android:label="account_fragment"
         tools:layout="@layout/setting_fragment" />
 </navigation>
