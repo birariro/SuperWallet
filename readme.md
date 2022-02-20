@@ -29,13 +29,13 @@
 
 ## 😔아쉬운점
 
-## ViewModel 의 역활 증가
+### ViewModel 의 역활 증가
 
 비지니스 로직은 UseCase에서 처리하고 ViewModel 에서는 단순히 연결 역활만 하려하였지만
 
 잘 지키지못했다고 느낌
 
-## Activity에서 Domain 계층의 model 에 접근
+### Activity에서 Domain 계층의 model 에 접근
 
 의도한 구조는 viewmodel에서 domain 계층의 model을 사용하고
 
@@ -43,7 +43,7 @@ activity에서는 단순한 역활만 수행하려했으나 점점 기능을 추
 
 activity에서 domain 의 model 을 사용하는 경우가 발생
 
-## 외부 라이브러리의 콜백을 어떻게 처리할것인가
+### 외부 라이브러리의 콜백을 어떻게 처리할것인가
 
 firebase 를 통해 로그인을 진행하면서 로그인의 결과를 콜백으로 반환을하는데
 
