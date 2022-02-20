@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.superwallet.databinding.ActivitySignupBinding
+import com.example.superwallet.util.MessageUtil
 import com.example.superwallet.util.extension.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,7 +59,7 @@ class SignupActivity : AppCompatActivity() {
                 Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                 finish()
             }else{
-                Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, MessageUtil.getMessage(signupResult.errorCode), Toast.LENGTH_SHORT).show()
             }
         }
     }

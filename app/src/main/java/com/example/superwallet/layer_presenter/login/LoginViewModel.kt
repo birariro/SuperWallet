@@ -1,5 +1,6 @@
 package com.example.superwallet.layer_presenter.login
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.superwallet.layer_domain.model.LoginData
 import com.example.superwallet.layer_domain.model.CommonResultData
@@ -66,11 +67,16 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             val loginResultFlow = loginUseCase.execute(loginData)
             loginResultFlow.collect {
-                _loginResult.value = it
-                if(it.success){
-                    insertLoginDataUseCase.execute(loginData)
+                Log.d(TAG,"loginResultFlow : ${it.success}")
+                if(_loginResult.value?.success != true){
+                    _loginResult.value = it
+                    if(it.success){
+                        insertLoginDataUseCase.execute(loginData)
+                    }
                 }
+
             }
+
         }
 
     }

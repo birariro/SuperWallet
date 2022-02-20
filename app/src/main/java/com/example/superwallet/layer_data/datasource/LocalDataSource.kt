@@ -11,7 +11,7 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
     }
     suspend fun saveLoginData(loginEntity: LoginEntity){
         var size = localDataBase.loginDAO().getAll().size
-        Log.d("TEST","localDataBase $size")
+        Log.d("TEST","saveLoginData localDataBase $size")
         localDataBase.loginDAO().insert(loginEntity)
     }
     suspend fun deleteLoginData() {
@@ -19,7 +19,7 @@ class LocalDataSource(private val localDataBase: LocalDataBase) {
         for (loginEntity in loginDataList) {
             localDataBase.loginDAO().delete(loginEntity)
         }
-        Log.d("TEST","localDataBase! ${loginDataList.size}")
+        Log.d("TEST","deleteLoginData localDataBase ${loginDataList.size}")
     }
 
     suspend fun insertCardData(cardEntity: CardEntity){
